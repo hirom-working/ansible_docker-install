@@ -1,0 +1,4 @@
+---
+- import_tasks: purge-oldpkg.yml
+- import_tasks: install.yml
+...

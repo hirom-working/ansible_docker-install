@@ -1,0 +1,13 @@
+---
+- name: purge old package
+  become: yes
+  apt:
+    name:
+      - docker
+      - docker-engine
+      - docker.io
+      - containerd
+      - runc
+    state: absent
+    purge: yes
+...
