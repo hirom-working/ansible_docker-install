@@ -1,8 +1,8 @@
 ---
 - name: purge old package
   become: yes
-  apt:
-    name:
+  ansible.builtin.apt:
+    pkg:
       - docker
       - docker-engine
       - docker.io

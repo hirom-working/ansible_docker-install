@@ -1,17 +1,13 @@
 ---
 - name: Dockerのインストールに必要なパッケージをインストール
   become: yes
-  apt:
-    name:
+  ansible.builtin.apt:
+    pkg:
       - apt-transport-https
       - ca-certificates
       - curl
       - software-properties-common
     state: present
-
-- name: apt update
-  become: yes
-  apt:
     update_cache: yes
 
 - name: dockerリポジトリのGPGキーをシステムに追加
@@ -27,23 +23,17 @@
     repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable
     state: present
 
-- name: apt update
-  become: yes
-  apt:
-    update_cache: yes
-
 - name: Dockerをインストール
   become: yes
-  apt:
-    name: 
+  ansible.builtin.apt:
+    pkg: 
       - docker-ce
       - docker-ce-cli
       - containerd.io
       - docker-compose-plugin
+    update_cache: yes
   notify: 
     - add_user_to_docker_group
     - restart_docker_daemon
   changed_when: yes
-
-- meta: flush_handlers
 ...
